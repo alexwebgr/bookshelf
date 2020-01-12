@@ -1,3 +1,26 @@
-<nav class="navbar navbar-light bg-light">
-  <%= link_to 'Bookshelf', books_url %>
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+  <%= link_to 'Bookshelf', root_url, class: 'navbar-brand' %>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+
+  <div class="collapse navbar-collapse" id="navbarSupportedContent">
+    <ul class="navbar-nav ml-auto">
+      <% if logged_in %>
+        <li class="nav-item mt-2">
+          <%= current_user.email %>
+        </li>
+        <li class="nav-item">
+          <%= link_to 'Logout', sessions_logout_path, method: :delete, class: 'nav-link' %>
+        </li>
+      <% else %>
+        <li class="nav-item">
+          <%= link_to 'Login', sessions_login_path, class: 'nav-link' %>
+        </li>
+        <li class="nav-item">
+          <%= link_to 'Register', sessions_register_path, class: 'nav-link' %>
+        </li>
+      <% end %>
+    </ul>
+  </div>
 </nav>

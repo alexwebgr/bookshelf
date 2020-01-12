@@ -1,0 +1,16 @@
+<h3 class="text-center">Login</h3>
+<%= form_tag(sessions_do_login_path) do %>
+  <div class="form-group">
+    <%= label(:user, :email) %>
+    <%= text_field(:user, :email, class: 'form-control', placeholder: :email, required: true) %>
+  </div>
+
+  <div class="form-group">
+    <%= label :user, 'Password' %>
+    <%= password_field :user, :password, class: 'form-control', placeholder: :email, required: true %>
+  </div>
+
+  <div class="actions text-right">
+    <%= submit_tag 'Login', class: 'btn btn-primary' %>
+  </div>
+<% end %>

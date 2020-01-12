@@ -1,0 +1,57 @@
+/* fixating and fading away the flash message */
+.alert-notice {
+  background-color: #d9edf7;
+  border-color: #bce8f1;
+  color: #31708f;
+}
+
+.bks-alert-fixed {
+  left: 50%;
+  position: fixed;
+  width: 50%;
+  min-width: 400px;
+  max-width: 800px;
+  opacity: 0.9;
+  z-index: 1050;
+  transform: translate(-50%, 0%);
+  text-align: center;
+  transition: top 0.6s ease-out 0s;
+  max-height: 600px;
+  overflow: auto;
+}
+
+.animate {
+  -webkit-animation-duration: 1s;
+  animation-duration: 1s;
+  -webkit-animation-fill-mode: both;
+  animation-fill-mode: both;
+}
+
+
+.fadeOut {
+  -webkit-animation-name: fadeOut;
+  animation-name: fadeOut;
+  -webkit-animation-delay: 50s;
+  -moz-animation-delay: 50s;
+  animation-delay: 50s;
+}
+
+.alert-dismissable .close, .alert-dismissible .close {
+  color: inherit;
+  position: absolute;
+  right: 10px;
+  top: 10px;
+}
+
+@keyframes fadeOut {
+  from {
+    opacity: 1;
+    bottom: 50px;
+  }
+
+  to {
+    opacity: 0;
+    bottom: -1000px;
+  }
+}
+/*  */

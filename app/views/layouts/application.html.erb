@@ -11,10 +11,15 @@
   </head>
 
   <body>
+    <div id="flash">
+      <% if flash.present? %>
+        <%= render 'shared/flash' %>
+      <% end %>
+    </div>
     <div class="container-fluid">
       <%= render 'shared/header' %>
       <div class="row">
-        <div class="col">
+        <div class="col-6 offset-3">
           <%= yield %>
         </div>
       </div>

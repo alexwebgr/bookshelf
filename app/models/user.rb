@@ -7,4 +7,5 @@ class User < ApplicationRecord
   validates :password, presence: true
 
   has_many :books, dependent: :destroy
+  has_many :uploads, dependent: :destroy
 end

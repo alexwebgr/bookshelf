@@ -5,7 +5,6 @@ FactoryBot.define do
     date_published { "2020-01-11 12:01:03" }
     unique_identifier { "MyString" }
     publisher_name { "MyString" }
-
     user
 
     trait :invalid do

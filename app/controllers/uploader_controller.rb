@@ -1,7 +1,7 @@
 require 'csv'
 require 'net/http'
 class UploaderController < ApplicationController
-  after_action :notify_webhook, only: [:do_upload, :do_file_upload]
+  after_action :notify_webhook, only: [:do_upload]
   def upload
   end
 
@@ -13,7 +13,10 @@ class UploaderController < ApplicationController
 
     respond_to do |format|
       if @upload.save
-        format.html { redirect_to @upload, notice: 'Upload was successfully created.' }
+        format.html {
+          notify_webhook(@upload.csv_file.filename.to_s)
+          redirect_to @upload, notice: 'Upload was successfully created.'
+        }
       else
         format.js {
           flash.now[:danger] = @upload.errors
@@ -59,11 +62,12 @@ class UploaderController < ApplicationController
     redirect_to  books_url
   end
 
-  def notify_webhook
+  def notify_webhook(filename)
     # todo move the url to the credentials file
     base_url = 'http://webhook.site/f2d3e621-7abd-41e5-a58c-915b6863ec89'
 
     url = URI.parse(base_url)
+    url.query = URI.encode_www_form({filename: filename}) if filename
     req = Net::HTTP::Get.new(url.to_s)
     Net::HTTP.start(url.host, url.port) {|http|
       http.request(req)

@@ -24,7 +24,9 @@ class UploadsController < ApplicationController
   # POST /uploads
   # POST /uploads.json
   def create
-    @upload = Upload.new(upload_params)
+    local_params = upload_params.clone
+    local_params[:user_id] = current_user.id
+    @upload = Upload.new(local_params)
 
     respond_to do |format|
       if @upload.save
@@ -69,6 +71,6 @@ class UploadsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def upload_params
-      params.require(:upload).permit(:filename, :user_id)
+      params.require(:upload).permit(:filename, :csv_file)
     end
 end

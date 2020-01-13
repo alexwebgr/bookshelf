@@ -1,5 +1,6 @@
 class Upload < ApplicationRecord
   belongs_to :user
+  has_one_attached :csv_file
 
   validates :filename, presence: true
 end

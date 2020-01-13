@@ -1,5 +1,7 @@
 require 'csv'
+require 'net/http'
 class UploaderController < ApplicationController
+  after_action :notify_webhook, only: [:do_upload]
   def upload
   end
 
@@ -37,5 +39,15 @@ class UploaderController < ApplicationController
     end
 
     redirect_to  books_url
+  end
+
+  def notify_webhook
+    base_url = 'http://webhook.site/f2d3e621-7abd-41e5-a58c-915b6863ec89'
+
+    url = URI.parse(base_url)
+    req = Net::HTTP::Get.new(url.to_s)
+    Net::HTTP.start(url.host, url.port) {|http|
+      http.request(req)
+    }
   end
 end

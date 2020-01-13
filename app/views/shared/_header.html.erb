@@ -5,6 +5,19 @@
   </button>
 
   <div class="collapse navbar-collapse" id="navbarSupportedContent">
+    <ul class="navbar-nav">
+      <% if logged_in %>
+        <li class="nav-item">
+          <%= link_to 'Books', books_url, class: 'nav-link' %>
+        </li>
+        <li class="nav-item">
+          <%= link_to 'Files', uploads_url, class: 'nav-link' %>
+        </li>
+        <li class="nav-item">
+          <%= link_to 'Upload', uploader_upload_url, class: 'nav-link' %>
+        </li>
+      <% end %>
+    </ul>
     <ul class="navbar-nav ml-auto">
       <% if logged_in %>
         <li class="nav-item mt-2">

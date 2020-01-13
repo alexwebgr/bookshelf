@@ -1,3 +1,5 @@
+require 'csv'
+
 class UploadsController < ApplicationController
   before_action :set_upload, only: [:show, :edit, :update, :destroy]
 

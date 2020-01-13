@@ -1,8 +1,26 @@
 require 'csv'
 require 'net/http'
 class UploaderController < ApplicationController
-  after_action :notify_webhook, only: [:do_upload]
+  after_action :notify_webhook, only: [:do_upload, :do_file_upload]
   def upload
+  end
+
+  def do_file_upload
+    # todo create books
+    local_params = upload_params.clone
+    local_params[:user_id] = current_user.id
+    @upload = Upload.new(local_params)
+
+    respond_to do |format|
+      if @upload.save
+        format.html { redirect_to @upload, notice: 'Upload was successfully created.' }
+      else
+        format.js {
+          flash.now[:danger] = @upload.errors
+          render partial: 'shared/flash_renderer'
+        }
+      end
+    end
   end
 
   def do_upload
@@ -42,6 +60,7 @@ class UploaderController < ApplicationController
   end
 
   def notify_webhook
+    # todo move the url to the credentials file
     base_url = 'http://webhook.site/f2d3e621-7abd-41e5-a58c-915b6863ec89'
 
     url = URI.parse(base_url)
@@ -50,4 +69,9 @@ class UploaderController < ApplicationController
       http.request(req)
     }
   end
+
+  def upload_params
+    params.require(:upload).permit(:csv_file)
+  end
+
 end

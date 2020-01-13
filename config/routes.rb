@@ -1,5 +1,6 @@
 Rails.application.routes.draw do
   get 'uploader/upload'
+  post 'uploader/do_file_upload'
   post 'uploader/do_upload'
   get 'sessions/login'
   post 'sessions/do_login'
